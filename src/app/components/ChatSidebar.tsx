@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface ChatHistoryItem {
   id: string;
@@ -17,7 +19,7 @@ export default function ChatSidebar({ companyName, chatHistory, onChatSelect }: 
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className={`flex flex-col h-full bg-gray-900 text-white transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'}`}>
+    <div className={`flex flex-col h-full bg-[#1a1a1a] text-white transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'}`}>
       <div className="flex items-center justify-between p-4 border-b border-gray-700">
         {!isCollapsed && <h1 className="font-bold text-xl">{companyName}</h1>}
         <button 
@@ -42,7 +44,7 @@ export default function ChatSidebar({ companyName, chatHistory, onChatSelect }: 
             <input
               type="text"
               placeholder="Search chats..."
-              className="w-full bg-gray-800 text-white rounded-l-full rounded-r-full py-2 pl-8 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#2a2a2a] text-white rounded-l-full rounded-r-full py-2 pl-8 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,32 +67,25 @@ export default function ChatSidebar({ companyName, chatHistory, onChatSelect }: 
       <div className="px-4 py-2">
         <button className={`flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-l-full rounded-r-full py-2 transition-colors ${isCollapsed ? 'w-10 mx-auto' : 'w-full px-4'}`}>
           {isCollapsed ? (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
+            <FontAwesomeIcon icon={faPlus} className="h-5 w-5" />
           ) : (
             <>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
+              <FontAwesomeIcon icon={faPlus} className="h-5 w-5 mr-2" />
               New Chat
             </>
           )}
         </button>
       </div>
 
-      <div className="flex-grow overflow-y-auto">
-        {isCollapsed ? (
-          <div className="flex justify-center py-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-        ) : (
+      <div className="mt-4">
+        {!isCollapsed && (
           <h2 className="px-4 py-2 text-gray-400 text-xs uppercase">
-            Chat History
+            CHAT HISTORY
           </h2>
         )}
+      </div>
+
+      <div className="flex-grow overflow-y-auto">
         <ul className="space-y-1 px-2">
           {chatHistory.map((chat) => (
             <li key={chat.id}>
@@ -98,12 +93,12 @@ export default function ChatSidebar({ companyName, chatHistory, onChatSelect }: 
                 onClick={() => onChatSelect(chat.id)}
                 className={`flex items-center w-full rounded-md py-2 px-2 ${
                   chat.isActive 
-                    ? 'bg-gray-700 text-white' 
-                    : 'text-gray-300 hover:bg-gray-800'
+                    ? 'bg-[#2a2a2a] text-white' 
+                    : 'text-gray-300 hover:bg-[#2a2a2a]'
                 } transition-colors ${isCollapsed ? 'justify-center' : 'justify-between'}`}
               >
                 {isCollapsed ? (
-                  <div className="w-6 h-6 flex items-center justify-center bg-gray-800 rounded-full text-xs">
+                  <div className="w-6 h-6 flex items-center justify-center bg-[#2a2a2a] rounded-full text-xs">
                     {chat.title.charAt(0)}
                   </div>
                 ) : (
